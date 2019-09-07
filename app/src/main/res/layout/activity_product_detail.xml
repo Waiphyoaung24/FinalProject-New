@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_full">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <Button
+            android:id="@+id/btn_addToCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_price_tag"
+            android:layout_below="@id/btn_size_medium"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_button_border_add_to_cart"
+            android:fontFamily="@font/regular"
+            android:padding="8dp"
+            android:text="Buy Now"
+            android:textAllCaps="false"
+            android:textColor="@color/black_full"
+
+
+            />
+
+        <Button
+            android:id="@+id/btn_explore_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_addToCart"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_button_border"
+            android:fontFamily="@font/regular"
+            android:paddingLeft="64dp"
+            android:paddingRight="64dp"
+            android:text="Explore More"
+            android:textAllCaps="false"
+            android:textColor="@color/primary_text" />
+
+        <Button
+            android:id="@+id/btn_white"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/tv_color"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/white_full" />
+
+        <Button
+            android:id="@+id/btnBlack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/tv_color"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/btn_white"
+            android:background="@color/black_full" />
+
+        <Button
+            android:id="@+id/btnGray"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/tv_color"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/btnBlack"
+            android:background="@color/primary_dark" />
+
+        <Button
+            android:id="@+id/btn_size_small"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/tv_size"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_button"
+            android:text="S"
+            android:textColor="@color/white_full" />
+
+        <Button
+            android:id="@+id/btn_size_medium"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/tv_size"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/btn_size_small"
+            android:background="@drawable/rounded_button"
+            android:text="M"
+            android:textColor="@color/white_full" />
+
+
+        <Button
+            android:id="@+id/btn_size_large"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/tv_size"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/btn_size_medium"
+            android:background="@drawable/rounded_button"
+            android:text="L"
+            android:textColor="@color/white_full" />
+
+        <ImageView
+            android:id="@+id/iv_Love"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@id/btn_size_medium"
+            android:layout_toRightOf="@id/btn_addToCart"
+            android:background="@color/white_full"
+            android:foreground="@drawable/bg_ripple_primary"
+            android:padding="@dimen/margin_medium_2"
+            android:src="@drawable/hearts" />
+
+        <ImageView
+            android:id="@+id/iv_product_image"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_product_detail" />
+
+        <TextView
+            android:id="@+id/tv_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_white"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/regular"
+            android:text="Choose Size"
+            android:textColor="@color/secondary_text"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/tv_price_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_product_name"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/regular"
+            android:text="$44.99"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_heading_1x" />
+
+        <TextView
+            android:id="@+id/tv_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_price_tag"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/regular"
+            android:text="Color"
+            android:textColor="@color/secondary_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_product_image"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/regular"
+            android:text="Versace Hoodie with Print"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_heading_1x"
+
+            />
+
+
+    </RelativeLayout>
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_full">
+
+
+            <FrameLayout
+                android:id="@+id/iv_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="6dp"
+                    android:src="@drawable/back" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/regular"
+                android:text="Product Detail"
+                android:textColor="@color/black_full"
+                android:textSize="18sp" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+</android.support.design.widget.CoordinatorLayout>

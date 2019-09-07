@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_full">
+
+    <RelativeLayout
+        android:id="@+id/rl_top_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.9"
+            android:foreground="@android:drawable/screen_background_dark_transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_dummy_login_1" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ivImage"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/bg_button_sign"
+            android:fontFamily="@font/regular"
+            android:text="Login With Google"
+            android:textColor="@color/white_full"
+            android:textAllCaps="false" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@id/ivImage"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="4dp"
+            android:alpha="0.7"
+            android:src="@drawable/google_1" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
