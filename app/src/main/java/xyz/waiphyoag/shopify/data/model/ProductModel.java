@@ -314,6 +314,18 @@ public class ProductModel {
         designerVO.setFavorite(true);
 
     }
+    public void addFavoriteProductForTopTrends(TopTrendsVO topTrendsVO) {
+        FavoriteVO favoriteVO = new FavoriteVO(topTrendsVO.getProductId(), topTrendsVO.getProductTitle(), topTrendsVO.getProductPrice(), topTrendsVO.getProductImage());
+        mDatabaseReference.child(SHOPIFY).child("User").child(getUserId()).child("Favorite").child(topTrendsVO.getProductId()).setValue(favoriteVO);
+        topTrendsVO.setFavorite(true);
+
+    }
+    public void addFavoriteProductForShopNow (ShopNowVO shopNowVO) {
+        FavoriteVO favoriteVO = new FavoriteVO(shopNowVO.getProductId(), shopNowVO.getProductTitle(), shopNowVO.getProductPrice(), shopNowVO.getProductImage());
+        mDatabaseReference.child(SHOPIFY).child("User").child(getUserId()).child("Favorite").child(shopNowVO.getProductId()).setValue(favoriteVO);
+        shopNowVO.setFavorite(true);
+
+    }
 
 
     public void purchaseProduct(String userId, String productId, String address, String purchaseId) {

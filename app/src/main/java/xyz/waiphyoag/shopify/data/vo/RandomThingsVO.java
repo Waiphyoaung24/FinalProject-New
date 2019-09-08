@@ -16,6 +16,7 @@ public class RandomThingsVO implements  SharedParent {
     @SerializedName("productId")
     private String productId;
 
+
     public String getProductId() {
         return productId;
     }

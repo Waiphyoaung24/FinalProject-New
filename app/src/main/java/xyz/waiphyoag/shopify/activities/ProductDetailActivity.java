@@ -150,16 +150,31 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
         tvProductName.setText(shopNowVO.getProductTitle());
         tvPrice.setText(shopNowVO.getProductPrice());
 
+        if (shopNowVO.isFavorite()) {
+            ivLove.setImageDrawable(getDrawable(R.drawable.hearts_filled));
+        } else {
+            ivLove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        btnAddtoCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    ivLove.setImageDrawable(getDrawable(R.drawable.hearts_filled));
 
-                Intent intentForAddToCart = AddToCartActivity.cartIntentForList(getApplicationContext(), shopNowVO.getProductId());
-                startActivity(intentForAddToCart);
-            }
-        });
+                    ProductModel.getInstance().addFavoriteProductForShopNow(shopNowVO);
 
+
+                }
+            });
+
+
+            btnAddtoCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intentForAddToCart = AddToCartActivity.cartIntentForList(getApplicationContext(), shopNowVO.getProductId());
+                    startActivity(intentForAddToCart);
+                }
+            });
+        }
 
     }
 
@@ -209,21 +224,33 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
         tvPrice.setText(topTrendsVO.getProductPrice());
         if (topTrendsVO.isFavorite()) {
             ivLove.setImageDrawable(getDrawable(R.drawable.hearts_filled));
+        } else {
+            ivLove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ivLove.setImageDrawable(getDrawable(R.drawable.hearts_filled));
+
+                    ProductModel.getInstance().addFavoriteProductForTopTrends(topTrendsVO);
+
+
+                }
+            });
+
+            btnAddtoCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intentForAddToCart = AddToCartActivity.cartIntentForTopTrends(getApplicationContext(), topTrendsVO.getProductId());
+                    startActivity(intentForAddToCart);
+
+
+                }
+            });
+
         }
 
-        btnAddtoCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intentForAddToCart = AddToCartActivity.cartIntentForTopTrends(getApplicationContext(), topTrendsVO.getProductId());
-                startActivity(intentForAddToCart);
-
-
-            }
-        });
-
     }
-
     @Override
     public void onClick(View v) {
 

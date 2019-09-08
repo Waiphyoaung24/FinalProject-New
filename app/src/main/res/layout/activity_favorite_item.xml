@@ -33,7 +33,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/background">
 
         <Button
@@ -80,7 +80,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="14dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="14dp"
             android:id="@+id/rv_favorite"/>
 
 

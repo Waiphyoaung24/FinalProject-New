@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by WaiPhyoAg on 9/2/19.
  */
 
-public class TopTrendsVO implements  SharedParent {
+public class TopTrendsVO implements SharedParent {
 
     @SerializedName("productTitle")
     private String productTitle;

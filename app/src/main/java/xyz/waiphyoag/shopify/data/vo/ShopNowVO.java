@@ -16,6 +16,15 @@ public class ShopNowVO {
     private String productImage;
     @SerializedName("productId")
     private String productId;
+    private Boolean Favorite;
+
+    public Boolean isFavorite() {
+        return Favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        Favorite = favorite;
+    }
 
     public String getProductId() {
         return productId;
