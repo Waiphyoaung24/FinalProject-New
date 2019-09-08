@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
-                android:background="@drawable/focused"
+                android:id="@+id/llVisa"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -108,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/focused"
+                android:background="@drawable/white_light_rect"
                 android:padding="12dp">
 
 

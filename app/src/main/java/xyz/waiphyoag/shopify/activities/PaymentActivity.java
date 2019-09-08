@@ -54,6 +54,9 @@ public class PaymentActivity extends BaseActivity {
     @BindView(R.id.btn_pay_now)
     Button btnPaynow;
 
+    @BindView(R.id.llVisa)
+    LinearLayout llVisa;
+
 
     public static Intent paymentIntentForList(Context context, String productId) {
         Intent intent = new Intent(context, PaymentActivity.class);
@@ -91,6 +94,10 @@ public class PaymentActivity extends BaseActivity {
                     | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+
+
+
+
 
 
         int detailType = getIntent().getIntExtra("detailType", -1);

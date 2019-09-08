@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.wang.avi.AVLoadingIndicatorView;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -43,6 +45,8 @@ public class ProductListActivity extends BaseActivity implements ProductListScre
     ImageView ivProfile;
     @BindView(R.id.iv_favorite)
     ImageView ivFavroite;
+    @BindView(R.id.indicator)
+    AVLoadingIndicatorView indicatorView;
 
 
     private ProductListAdapter mAdapter;
@@ -162,9 +166,16 @@ public class ProductListActivity extends BaseActivity implements ProductListScre
     public void onDataLoadedShopNow(LoadShopNowListEvent event) {
 
 
-        if (!event.getShopNowVOList().isEmpty()) {
+        if (event.getShopNowVOList().isEmpty()) {
 
+            rvProductList.setVisibility(View.GONE);
+
+            }else
+        {
+            rvProductList.setVisibility(View.VISIBLE);
             mAdapter.setNewData(event.getShopNowVOList());
+            indicatorView.hide();
+
         }
 
 

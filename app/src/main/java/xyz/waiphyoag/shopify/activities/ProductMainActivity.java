@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -76,6 +77,9 @@ public class ProductMainActivity extends BaseActivity implements ProductMainScre
 
     @BindView(R.id.tv_second_show_all)
     TextView tvShowAll;
+
+    @BindView(R.id.indicator)
+    AVLoadingIndicatorView indicatorView;
 
 
     private PromotionItemViewPager mPromotionItemViewPager;
@@ -174,10 +178,7 @@ public class ProductMainActivity extends BaseActivity implements ProductMainScre
 
         ProductModel.getInstance().startLoadingTopTrendsProduct();
         ProductModel.getInstance().startLoadingRandomThingsProduct();
-
         ProductModel.getInstance().startLoadingDesignerProduct();
-
-
         ProductModel.getInstance().startLoadingPromotionProduct();
 
 
@@ -198,6 +199,8 @@ public class ProductMainActivity extends BaseActivity implements ProductMainScre
             startActivity(intent);
         }
     });
+
+
 
     }
 
@@ -248,13 +251,31 @@ public class ProductMainActivity extends BaseActivity implements ProductMainScre
 
     @Subscribe
     public void onLoadDesignerProdut(LoadProductListEvent.LoadDesignerProduct designerProduct) {
-        mDesingerAdapter.setNewData(designerProduct.getLoadDeisngerProduct());
+       if(designerProduct.getLoadDeisngerProduct().isEmpty()){
+           rvDesignerProduct.setVisibility(View.GONE);
+           indicatorView.show();
+       }
+       else {
+           rvDesignerProduct.setVisibility(View.VISIBLE);
+           mDesingerAdapter.setNewData(designerProduct.getLoadDeisngerProduct());
+           indicatorView.hide();
+       }
+
+
+
+
 
     }
 
     @Subscribe
     public void onLoadTopTrends(LoadProductListEvent.loadTopTrendsProduct topTrendsProduct) {
-        mTopTrendsAdapter.setNewData(topTrendsProduct.getLoadTopTrendsList());
+        if(topTrendsProduct.getLoadTopTrendsList().isEmpty()){
+            rvTopTrends.setVisibility(View.GONE);
+        }
+        else {
+            rvTopTrends.setVisibility(View.VISIBLE);
+            mTopTrendsAdapter.setNewData(topTrendsProduct.getLoadTopTrendsList());
+        }
 
 
     }
@@ -262,15 +283,28 @@ public class ProductMainActivity extends BaseActivity implements ProductMainScre
     @Subscribe
     public void onLoadsRandomthings(LoadProductListEvent.loadRandomThingsProduct randomThingsProduct) {
 
-        mRandomAdapter.setNewData(randomThingsProduct.getLoadRandomThingsList());
-
+        if(randomThingsProduct.getLoadRandomThingsList().isEmpty()){
+            rvRandomThings.setVisibility(View.GONE);
+        }
+        else {
+            rvRandomThings.setVisibility(View.VISIBLE);
+            mRandomAdapter.setNewData(randomThingsProduct.getLoadRandomThingsList());
+        }
 
     }
 
     @Subscribe
     public void onLoadPromotionThings(LoadProductListEvent.loadPromotionThings promotionThings) {
 
-        mPromotionItemViewPager.setData(promotionThings.getLoadPromotionThings());
+
+
+        if(promotionThings.getLoadPromotionThings().isEmpty()){
+            vpPromotionItem.setVisibility(View.GONE);
+        }else
+        {
+            vpPromotionItem.setVisibility(View.VISIBLE);
+            mPromotionItemViewPager.setData(promotionThings.getLoadPromotionThings());
+        }
     }
 }
 

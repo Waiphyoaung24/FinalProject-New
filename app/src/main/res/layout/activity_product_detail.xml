@@ -129,6 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="256dp"
             android:layout_marginTop="8dp"
+
             android:scaleType="fitCenter"
             android:src="@drawable/img_product_detail" />
 

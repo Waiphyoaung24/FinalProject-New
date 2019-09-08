@@ -51,7 +51,26 @@
         android:gravity="center"
         android:fontFamily="@font/regular"/>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_regular_2x"
+        android:text="Save this order number for tracking your delivery"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/regular"
+        android:textColor="@color/secondary_text"
+        />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/secondary_text"
+    android:text="Feel free to contact us, Customer Support - 095123123"
+    android:layout_marginLeft="24dp"
+    android:textSize="@dimen/text_regular"
+    android:fontFamily="@font/regular"
+    android:layout_marginTop="8dp"/>
 
 
     <Button

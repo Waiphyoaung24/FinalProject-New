@@ -86,6 +86,7 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
                 Intent intentForSignIn = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(intentForSignIn, RC_SIGN_IN);
 
+
             }
         });
     }

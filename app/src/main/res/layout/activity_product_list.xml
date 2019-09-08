@@ -8,6 +8,7 @@
 
 
 
+
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,6 +72,7 @@
                 android:id="@+id/rl_top_screen"
                 >
 
+
                 <TextView
                     android:id="@+id/tv_product_list_name"
                     android:layout_width="wrap_content"
@@ -99,6 +101,13 @@
 
 
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/indicator"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        app:indicatorColor="@color/cardview_dark_background"
+        app:indicatorName="BallGridPulseIndicator" />
 
 
     <android.support.design.widget.BottomNavigationView
