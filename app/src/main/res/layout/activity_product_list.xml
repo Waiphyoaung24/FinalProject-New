@@ -40,6 +40,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="14dp"
+                    android:id="@+id/iv_favorite"
                     android:layout_marginTop="4dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/hearts_filled" />

@@ -1,74 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_full">
+    android:alpha="0.9"
+    android:background="@drawable/background">
 
-
-
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="310dp"
-        android:layout_marginTop="140dp"
-        android:src="@drawable/curve_top_screen" />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="#303F9F" />
-
-
-    <RelativeLayout
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="205dp"
-        android:background="#303F9F" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="64dp">
-
-        <ImageView
-            android:id="@+id/ivCart"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_centerHorizontal="true"
-            android:alpha="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ivCart"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:id="@+id/text"
-            android:fontFamily="@font/bold"
-            android:text="Your Favorite Item is Empty"
-            android:textColor="@color/white_full"
-
-            android:textSize="@dimen/text_heading_1x" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_button_border"
-            android:layout_below="@id/text"
-            android:text="Shop Now"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/primary_text"
-            android:textAllCaps="false"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:fontFamily="@font/regular"
-            android:layout_centerHorizontal="true"/>
-
-
-
-    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/iv_back"
@@ -84,7 +19,6 @@
             android:paddingTop="6dp"
             android:src="@drawable/back_white" />
     </FrameLayout>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,6 +29,63 @@
         android:text="Favorite Item"
         android:textColor="@color/white_full"
         android:textSize="@dimen/text_regular_2x" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/background">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_button_border"
+            android:fontFamily="@font/regular"
+            android:paddingLeft="32dp"
+            android:id="@+id/btnShopNow"
+            android:paddingRight="32dp"
+            android:text="Shop Now"
+            android:textAllCaps="false"
+            android:textColor="@color/primary_text" />
+
+        <ImageView
+            android:id="@+id/ivCart"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:alpha="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shopping_basket_2" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivCart"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/bold"
+            android:text="Your Favorite Item is Empty"
+            android:textColor="@color/white_full"
+
+            android:textSize="@dimen/text_heading_1x" />
+
+
+        <xyz.waiphyoag.shopify.components.SmartRecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="24dp"
+            android:id="@+id/rv_favorite"/>
+
+
+    </RelativeLayout>
+
 
 
 

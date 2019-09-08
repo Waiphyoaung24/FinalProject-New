@@ -16,10 +16,10 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/item_cart"
-        android:icon="@drawable/shopping_cart"
+        android:id="@+id/item_favorite"
+        android:icon="@drawable/favorite"
         android:iconTint="@color/secondary_text"
-        android:title="Cart"
+        android:title="Favorite"
         app:showAsAction="ifRoom"/>
 
 

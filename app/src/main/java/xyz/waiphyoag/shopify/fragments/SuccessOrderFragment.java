@@ -2,6 +2,7 @@ package xyz.waiphyoag.shopify.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -40,9 +41,11 @@ public class SuccessOrderFragment extends Fragment {
         View successView = inflater.inflate(R.layout.fragment_payment_done, container, false);
         ButterKnife.bind(this, successView);
 
-        Long tsLong = System.currentTimeMillis() / 10000;
-        String ts = tsLong.toString();
-        tvPurchaseOrder.setText("#" + ts);
+
+        SharedPreferences shared = getActivity().getSharedPreferences("purchaseOrder",Context.MODE_PRIVATE);
+        String purchaseOrder = shared.getString("key","");
+
+        tvPurchaseOrder.setText(purchaseOrder);
 
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override

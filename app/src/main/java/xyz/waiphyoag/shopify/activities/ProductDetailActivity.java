@@ -34,7 +34,7 @@ import xyz.waiphyoag.shopify.data.vo.TopTrendsVO;
  * Created by WaiPhyoAg on 9/1/19.
  */
 
-public class ProductDetailActivity extends BaseActivity {
+public class ProductDetailActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.iv_back)
     FrameLayout ivBack;
@@ -132,6 +132,12 @@ public class ProductDetailActivity extends BaseActivity {
 
 
         }
+
+        btnWhite.setOnClickListener(this);
+        btnGray.setOnClickListener(this);
+        btnBlack.setOnClickListener(this);
+
+
     }
 
     public void getProductDetailByListScreen(final ShopNowVO shopNowVO) {
@@ -215,6 +221,35 @@ public class ProductDetailActivity extends BaseActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.btn_white:
+               btnWhite.setSelected(true);
+                break;
+
+            case R.id.btnBlack:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    btnBlack.setBackgroundColor(getColor(R.color.colorPrimary));
+                }
+
+                break;
+            case R.id.btnGray:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    btnGray.setBackgroundTintList(getApplicationContext().getColorStateList(R.color.colorPrimary));
+                }
+
+                break;
+
+
+            default:
+                break;
+                
+        }
 
     }
 }

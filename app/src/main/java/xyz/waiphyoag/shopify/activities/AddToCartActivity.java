@@ -55,6 +55,7 @@ public class AddToCartActivity extends BaseActivity {
         return intent;
     }
 
+
     public static Intent cartIntentForDesigner(Context context, String productId) {
         Intent intent = new Intent(context, AddToCartActivity.class);
         intent.putExtra("productId", productId);
@@ -67,12 +68,7 @@ public class AddToCartActivity extends BaseActivity {
         intent.putExtra("productId", productId);
         intent.putExtra("detailType", 2);
         return intent;
-    }
 
-    public static Intent cartIntentForNoItem(Context context) {
-        Intent intent = new Intent(context, AddToCartActivity.class);
-        intent.putExtra("detailType", 3);
-        return intent;
     }
 
     @Override
@@ -110,10 +106,6 @@ public class AddToCartActivity extends BaseActivity {
             String productId = getIntent().getStringExtra("productId");
             DesignerVO designerVO = ProductModel.getInstance().getProductListDetilByIdForDesigner(productId);
             onGetAddToCartFromDesigner(designerVO);
-
-        } else if (detailType == 3) {
-            rlProduct.setVisibility(View.GONE);
-            rlEmpty.setVisibility(View.VISIBLE);
 
 
         } else if (detailType == 2) {
@@ -170,6 +162,7 @@ public class AddToCartActivity extends BaseActivity {
 
 
     }
+
     public void onGetAddToCartFromTopTrends(final TopTrendsVO topTrendsVO) {
 
         Glide.with(getApplicationContext())
@@ -189,7 +182,6 @@ public class AddToCartActivity extends BaseActivity {
                 finish();
             }
         });
-
 
 
     }

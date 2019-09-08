@@ -143,15 +143,15 @@ public class ProductMainActivity extends BaseActivity implements ProductMainScre
                     case R.id.item_shop:
                         Intent intentForShop = ProductListActivity.listIntent(getApplicationContext());
                         startActivity(intentForShop);
-                        finish();
+
 
 
                         break;
 
-                    case R.id.item_cart:
-                        Intent intentforCart = AddToCartActivity.cartIntentForNoItem(getApplicationContext());
-                        startActivity(intentforCart);
-                        finish();
+                    case R.id.item_favorite:
+
+                    Intent intent = FavoriteItemListActivity.intent(getApplicationContext());
+                    startActivity(intent);
 
                         break;
 

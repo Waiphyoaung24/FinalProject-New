@@ -214,6 +214,8 @@
 
                 <EditText
                     android:id="@+id/et_address"
+                    android:imeOptions="actionDone"
+                    android:background="@android:color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"

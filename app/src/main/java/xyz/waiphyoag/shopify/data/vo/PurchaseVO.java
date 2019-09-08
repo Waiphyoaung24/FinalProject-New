@@ -8,11 +8,21 @@ public class PurchaseVO {
     private String userId;
     private String productId;
     private String address;
+    private String purchaseId;
 
-    public PurchaseVO(String userId, String productId, String address) {
+    public PurchaseVO(String userId, String productId, String address, String purchaseId) {
         this.userId = userId;
         this.productId = productId;
         this.address = address;
+        this.purchaseId = purchaseId;
+    }
+
+    public String getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(String purchaseId) {
+        this.purchaseId = purchaseId;
     }
 
     public String getAddress() {

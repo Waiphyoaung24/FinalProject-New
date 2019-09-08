@@ -7,12 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,19 +18,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import xyz.waiphyoag.shopify.R;
 import xyz.waiphyoag.shopify.adapters.ProductListAdapter;
 import xyz.waiphyoag.shopify.data.model.ProductModel;
-import xyz.waiphyoag.shopify.data.vo.ShopNowVO;
 import xyz.waiphyoag.shopify.delegates.ProductListScreenDelegate;
 import xyz.waiphyoag.shopify.events.LoadShopNowListEvent;
-import xyz.waiphyoag.shopify.fragments.SuccessOrderFragment;
-import xyz.waiphyoag.shopify.fragments.UserProfile;
 
 /**
  * Created by WaiPhyoAg on 8/31/19.
@@ -51,8 +41,8 @@ public class ProductListActivity extends BaseActivity implements ProductListScre
 
     @BindView(R.id.ivProfile)
     ImageView ivProfile;
-
-
+    @BindView(R.id.iv_favorite)
+    ImageView ivFavroite;
 
 
     private ProductListAdapter mAdapter;
@@ -103,10 +93,10 @@ public class ProductListActivity extends BaseActivity implements ProductListScre
                         Toast.makeText(getApplicationContext(), "This is already a Shop List", Toast.LENGTH_SHORT).show();
                         break;
 
-                    case R.id.item_cart:
+                    case R.id.item_favorite:
 
-                        Intent intentForCart = AddToCartActivity.cartIntentForNoItem(getApplicationContext());
-                        startActivity(intentForCart);
+                        Intent intent = FavoriteItemListActivity.intent(getApplicationContext());
+                        startActivity(intent);
                         finish();
 
                         break;
@@ -119,22 +109,25 @@ public class ProductListActivity extends BaseActivity implements ProductListScre
         });
 
 
-
-
         ProductModel.getInstance().startLoadingShopNowProduct();
-
 
 
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.pop_enter,R.anim.exit,R.anim.enter, R.anim.pop_exit)
-                        .replace(R.id.rl_top_screen, UserProfile.newInstance())
-                        .addToBackStack(null)
-                        .commit();
+                Intent intent = new Intent(getApplicationContext(), ActivityUserProfile.class);
+                startActivity(intent);
 
+
+            }
+        });
+        ivFavroite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = FavoriteItemListActivity.intent(getApplicationContext());
+                startActivity(intent);
+                finish();
 
             }
         });

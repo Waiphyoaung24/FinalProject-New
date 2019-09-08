@@ -65,6 +65,9 @@ public class ProductModel {
     public ArrayList<PromotionVO> promotionVOS = new ArrayList<>();
     public List<PromotionVO> promotionVOList = new ArrayList<>();
 
+    public ArrayList<FavoriteVO> favoriteVOS = new ArrayList<>();
+    public List<FavoriteVO> favoriteVOList = new ArrayList<>();
+
 
     public List<SharedParent> mCollectionList;
 
@@ -306,23 +309,63 @@ public class ProductModel {
     }
 
     public void addFavoriteProductForDesign(DesignerVO designerVO) {
-        FavoriteVO favoriteVO = new FavoriteVO(designerVO.getProductId(), designerVO.getProductTitle(), "", "", designerVO.getProductPrice(), designerVO.getProductImage());
-        mDatabaseReference.child(SHOPIFY).child("User").child(userVO.getUserId()).child("Favorite").child(designerVO.getProductId()).setValue(favoriteVO);
+        FavoriteVO favoriteVO = new FavoriteVO(designerVO.getProductId(), designerVO.getProductTitle(), designerVO.getProductPrice(), designerVO.getProductImage());
+        mDatabaseReference.child(SHOPIFY).child("User").child(getUserId()).child("Favorite").child(designerVO.getProductId()).setValue(favoriteVO);
         designerVO.setFavorite(true);
 
     }
 
 
-    public void purchaseProduct(String userId, String productId, String address) {
+    public void purchaseProduct(String userId, String productId, String address, String purchaseId) {
 
-        PurchaseVO purchaseVO = new PurchaseVO(userId, productId, address);
+        PurchaseVO purchaseVO = new PurchaseVO(userId, productId, address, purchaseId);
 
         Long tsLong = System.currentTimeMillis() / 10;
         String ts = tsLong.toString();
         String key = productId + "__" + ts;
 
 
-        mDatabaseReference.child(SHOPIFY).child("Purchase").child(userId).child(" Total Purchases").child(key).setValue(purchaseVO);
+        mDatabaseReference.child(SHOPIFY).child("Purchase").child(userVO.getUserId()).child(" Total Purchases").child(key).setValue(purchaseVO);
+
+
+    }
+
+    public void onLoadingFavoriteItem() {
+        DatabaseReference databaseNode = mDatabaseReference.child(SHOPIFY).child("User").child(userVO.getUserId()).child("Favorite");
+        databaseNode.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                favoriteVOS.clear();
+
+                if (dataSnapshot != null) {
+                    for (DataSnapshot products : dataSnapshot.getChildren()) {
+                        FavoriteVO favoriteVO = products.getValue(FavoriteVO.class);
+                        favoriteVOS.add(favoriteVO);
+                    }
+                    favoriteVOList.clear();
+                    favoriteVOList.addAll(favoriteVOS);
+
+                    LoadProductListEvent.loadFavoriteItem favoriteItem = new LoadProductListEvent.loadFavoriteItem(favoriteVOList);
+                    EventBus.getDefault().post(favoriteItem);
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+
+        });
+    }
+
+
+    public void onRemoveFavoriteItem(String productId) {
+
+        DatabaseReference databaseNode = mDatabaseReference.child(SHOPIFY).child("User").child(userVO.getUserId()).child("Favorite").child(productId);
+        databaseNode.removeValue();
 
 
     }

@@ -7,4 +7,5 @@ package xyz.waiphyoag.shopify.delegates;
 public interface ProductListScreenDelegate {
 
     void onTapProductListImage(String productId);
+
 }

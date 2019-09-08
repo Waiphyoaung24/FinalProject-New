@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_addToCart"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="34dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/bg_button_border"
             android:fontFamily="@font/regular"
@@ -46,6 +46,7 @@
             android:textAllCaps="false"
             android:textColor="@color/primary_text" />
 
+
         <Button
             android:id="@+id/btn_white"
             android:layout_width="40dp"
@@ -54,6 +55,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="12dp"
             android:background="@color/white_full" />
+
 
         <Button
             android:id="@+id/btnBlack"
@@ -113,8 +115,8 @@
 
         <ImageView
             android:id="@+id/iv_Love"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_below="@id/btn_size_medium"
             android:layout_toRightOf="@id/btn_addToCart"
             android:background="@color/white_full"

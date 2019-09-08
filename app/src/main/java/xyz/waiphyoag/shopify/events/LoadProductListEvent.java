@@ -3,6 +3,7 @@ package xyz.waiphyoag.shopify.events;
 import java.util.List;
 
 import xyz.waiphyoag.shopify.data.vo.DesignerVO;
+import xyz.waiphyoag.shopify.data.vo.FavoriteVO;
 import xyz.waiphyoag.shopify.data.vo.PromotionVO;
 import xyz.waiphyoag.shopify.data.vo.RandomThingsVO;
 import xyz.waiphyoag.shopify.data.vo.SharedParent;
@@ -73,6 +74,18 @@ public class LoadProductListEvent {
 
         public List<PromotionVO> getLoadPromotionThings() {
             return loadPromotionThings;
+        }
+    }
+
+    public static class loadFavoriteItem {
+        private List<FavoriteVO> loadFavoriteThings;
+
+        public loadFavoriteItem(List<FavoriteVO> loadFavoriteThings) {
+            this.loadFavoriteThings = loadFavoriteThings;
+        }
+
+        public List<FavoriteVO> getLoadFavoriteThings() {
+            return loadFavoriteThings;
         }
     }
 }

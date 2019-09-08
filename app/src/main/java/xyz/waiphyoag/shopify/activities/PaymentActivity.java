@@ -2,6 +2,7 @@ package xyz.waiphyoag.shopify.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -145,8 +146,6 @@ public class PaymentActivity extends BaseActivity {
         });
 
 
-
-
     }
 
     public void getProductPaymentSectionByListScreen(final ShopNowVO shopNowVO) {
@@ -187,6 +186,7 @@ public class PaymentActivity extends BaseActivity {
 //        });
 
     }
+
     public void getProductPaymentSectionByTopTrendsScreen(final TopTrendsVO topTrendsVO) {
 
 
@@ -212,20 +212,32 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+                Long tsLong = System.currentTimeMillis() / 10000;
+                String ts = ("#" + tsLong.toString());
                 String address = etAddress.getText().toString();
 
-                ProductModel.getInstance().purchaseProduct(userName, productId, address);
+                if (address.matches("")) {
+                    Toast.makeText(getApplicationContext(), "Yoy must enter your address", Toast.LENGTH_SHORT).show();
+                } else {
+                    address = etAddress.getText().toString();
+                    ProductModel.getInstance().purchaseProduct(userName, productId, address, ts);
+                    getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
+                            .replace(R.id.rl_payment, SuccessOrderFragment.newInstance())
+                            .addToBackStack(null)
+                            .commit();
 
-                btnPaynow.setVisibility(View.GONE);
-                ivBack.setVisibility(View.GONE);
+                    btnPaynow.setVisibility(View.GONE);
+                    ivBack.setVisibility(View.GONE);
 
 
+                    SharedPreferences.Editor shared = getSharedPreferences("purchaseOrder", MODE_PRIVATE).edit();
+                    shared.putString("key", ts);
+                    shared.apply();
 
-                getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.enter,R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                        .replace(R.id.rl_payment, SuccessOrderFragment.newInstance())
-                        .addToBackStack(null)
-                        .commit();
+
+                }
+
 
             }
         });
