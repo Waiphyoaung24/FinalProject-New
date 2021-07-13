@@ -1,38 +1,27 @@
 package xyz.waiphyoag.shopify.activities;
 
 import android.content.Intent;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.os.Build;
+
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseApp;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 import butterknife.BindView;
@@ -45,13 +34,8 @@ import xyz.waiphyoag.shopify.adapters.PromotionItemViewPager;
 import xyz.waiphyoag.shopify.adapters.RandomItemsAdapter;
 import xyz.waiphyoag.shopify.components.SmartRecyclerView;
 import xyz.waiphyoag.shopify.data.model.ProductModel;
-import xyz.waiphyoag.shopify.data.vo.SharedParent;
-import xyz.waiphyoag.shopify.data.vo.ShopNowVO;
-import xyz.waiphyoag.shopify.data.vo.ShopifyVO;
 import xyz.waiphyoag.shopify.delegates.ProductMainScreenDelegate;
 import xyz.waiphyoag.shopify.events.LoadProductListEvent;
-
-import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 
 public class ProductMainActivity extends BaseActivity implements ProductMainScreenDelegate {
 
@@ -124,14 +108,14 @@ public class ProductMainActivity extends BaseActivity implements ProductMainScre
         rvRandomThings.setLayoutManager(linearLayoutManagerforRandom);
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+
                     | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
+
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -166,6 +150,7 @@ public class ProductMainActivity extends BaseActivity implements ProductMainScre
                 return true;
             }
         });
+        bottomNavigationView.setOnApplyWindowInsetsListener(null);
 
         btnExplore.setOnClickListener(new View.OnClickListener() {
             @Override
