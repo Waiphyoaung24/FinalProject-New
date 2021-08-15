@@ -13,14 +13,18 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,10 +106,21 @@ public class ActivityUserProfile extends BaseActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Continue with delete operation
+                        AuthUI.getInstance()
+                                .signOut(ActivityUserProfile.this)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        // ...
+                                        Intent intent= new Intent(ActivityUserProfile.this,LoginActivity.class);
+                                        startActivity(intent);
 
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                                        SharedPreferences preferences = getSharedPreferences("MySharedPreference",MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = preferences.edit();
+
+                                        editor.clear();
+                                        editor.commit();
+                                    }
+                                });
                     }
                 })
 

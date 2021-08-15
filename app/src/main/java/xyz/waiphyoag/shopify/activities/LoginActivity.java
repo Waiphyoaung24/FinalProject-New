@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 
 import android.view.View;
@@ -13,6 +16,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
+import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -21,6 +28,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,15 +79,14 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
 
         mSharedPreferences = getSharedPreferences("MySharedPreference", MODE_PRIVATE);
         id = mSharedPreferences.getString("UserId", "");
-        name = mSharedPreferences.getString("UserName", "");
-        email = mSharedPreferences.getString("UserEmail", "");
-        phone = mSharedPreferences.getString("phone","");
-        userProfile = mSharedPreferences.getString("UserProfile", "");
+        if(id!=""){
+            Intent intent = ProductMainActivity.mainIntent(getApplicationContext());
+            startActivity(intent);
+        }
 
 
         onTapButton(getApplicationContext());
 
-        setupGoogleApiClient();
 
     }
 
@@ -85,98 +94,77 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentForSignIn = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                onActivityResult(RC_SIGN_IN,0,intentForSignIn);
 
+                setupGoogleApiClient();
 
             }
         });
     }
 
-    private void setupGoogleApiClient() {
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("788682889549-9g6p3tlkov7uoh0k9t3e6c9vmp80vg48.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
+    private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
+            new FirebaseAuthUIActivityResultContract(),
+            new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
+                @Override
+                public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
+                    onSignInResult(result);
+                }
+            }
+    );
 
-        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
-                .enableAutoManage(this /*FragmentActivity*/, this /*OnConnectionFailedListener*/)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
+    private void setupGoogleApiClient() {
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build());
+
+        Intent signInIntent = AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
                 .build();
+        signInLauncher.launch(signInIntent);
+    }
+
+    private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
+        IdpResponse response = result.getIdpResponse();
+        if (result.getResultCode() == RESULT_OK) {
+            // Successfully signed in
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            Toast.makeText(getApplicationContext(), "Google Sign-In success : "
+                    + response.getEmail(), Toast.LENGTH_SHORT).show();
+
+            Intent intent = ProductMainActivity.mainIntent(getApplicationContext());
+            startActivity(intent);
+            onSuccessFulSignIn();
+            // ...
+        } else {
+            // Sign in failed. If response is null the user canceled the
+            // sign-in flow using the back button. Otherwise check
+            // response.getError().getErrorCode() and handle the error.
+            // ...
+        }
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+
+
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            onProcessGoogleSignInResult(result);
-            if (result.isSuccess()) {
+    private void onSuccessFulSignIn(){
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
 
 
-                GoogleSignInAccount account = result.getSignInAccount();
+        ProductModel.getInstance().addNewUser(mFirebaseUser.getUid(), mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail());
 
 
-                Toast.makeText(getApplicationContext(), "Google Sign-In success : "
-                        + account.getDisplayName(), Toast.LENGTH_SHORT).show();
-
-
-
-
-//                ProductModel.getInstance().addNewUser(id, name, "", email);
-
-
-                Intent intent = ProductMainActivity.mainIntent(getApplicationContext());
-                startActivity(intent);
-
-
-            } else {
-                Toast.makeText(getApplicationContext(), "Google Sign-In failed.", Toast.LENGTH_SHORT).show();
-
-            }
-        }
+        mSharedPreferences.edit()
+                .putString("UserId", mFirebaseUser.getUid())
+                .putString("UserEmail", mFirebaseUser.getEmail())
+                .putString("UserName", mFirebaseUser.getDisplayName())
+                .putString("UserProfile", mFirebaseUser.getPhotoUrl().toString())
+                .putString("phone",mFirebaseUser.getPhoneNumber())
+                .apply();
     }
-
-    public void onProcessGoogleSignInResult(GoogleSignInResult result) {
-
-        if (result.isSuccess()) {
-            GoogleSignInAccount account = result.getSignInAccount();
-            ProductModel.getInstance().authenticateUserWithGoogleAccount(account, new ProductModel.SignInWithGoogleAccountDelegate() {
-                @Override
-                public void onSuccessSignIn(GoogleSignInAccount signInAccount) {
-                    mAuth = FirebaseAuth.getInstance();
-                    mFirebaseUser = mAuth.getCurrentUser();
-
-
-                    ProductModel.getInstance().addNewUser(mFirebaseUser.getUid(), mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail());
-
-
-                    mSharedPreferences.edit()
-                            .putString("UserId", mFirebaseUser.getUid())
-                            .putString("UserEmail", mFirebaseUser.getEmail())
-                            .putString("UserName", mFirebaseUser.getDisplayName())
-                            .putString("UserProfile", mFirebaseUser.getPhotoUrl().toString())
-                            .putString("phone",mFirebaseUser.getPhoneNumber())
-                            .apply();
-
-                }
-
-                @Override
-                public void onFailureSignIn(String map) {
-
-                }
-            });
-
-
-        }
-    }
-
 
 }
 
